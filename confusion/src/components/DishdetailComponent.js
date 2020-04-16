@@ -11,6 +11,7 @@ class DishDetail extends Component {
     renderDish(dish) {
         if(dish!=null){
             return (
+                <div>
                 <Card>
                     <CardImg top src={dish.image} alt={dish.name} />
                     <CardBody>
@@ -18,6 +19,7 @@ class DishDetail extends Component {
                         <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
+                </div>
             );
         }
         else {
@@ -48,7 +50,7 @@ class DishDetail extends Component {
         })
 
         return (
-            <div className="col-12 col-md-5 m-1">
+            <div>
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
                     {list}
@@ -60,7 +62,7 @@ class DishDetail extends Component {
         
 
     render() {
-        const dish=this.props.selDish;
+        const dish=this.props.dish;
         if(dish==null)
         {
             return (
@@ -68,12 +70,16 @@ class DishDetail extends Component {
             )
         }
         return (
+            <div className='container'>
                 <div className='row'>
                     <div className='col-12 col-md-5 m-1'>
-                        {this.renderDish(this.props.selDish)}
+                        {this.renderDish(this.props.dish)}
                     </div>
-                    {this.renderComments(this.props.selDish.comments)}
+                    <div className='col-12 col-md-5 m-1'>
+                        {this.renderComments(this.props.dish.comments)}
+                    </div>
                 </div>
+            </div>
             
         )
     };
