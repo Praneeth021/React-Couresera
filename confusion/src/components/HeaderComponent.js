@@ -1,15 +1,47 @@
 import React,{Component} from 'react';
-import {Navbar,NavbarBrand,Jumbotron} from 'reactstrap';
+import {Nav,Navbar,NavbarBrand,NavbarToggler,NavItem,Jumbotron,Collapse} from 'reactstrap';
+import {NavLink} from 'react-router-dom';
 
 
 class Header extends Component {
 
+    constructor(props){
+        super(props)
+
+        this.state = {
+            isNavOpen : false,
+        }
+
+        this.toggleNav = this.toggleNav.bind(this)
+    }
+
+    toggleNav() {
+        this.setState({isNavOpen:!this.state.isNavOpen})
+    }
+
     render() {
         return (
             <div>
-                <Navbar dark>
+                <Navbar dark expand='md'>
                     <div className='container'>
-                        <NavbarBrand href='#'>Restaurant Con-Fusion</NavbarBrand>
+                        <NavbarBrand className='mr-auto' href='#'><img src='assets/images/logo.png'  height='60' width='60' alt='Restaurant Con-Fusion'/></NavbarBrand>
+                        <NavbarToggler onClick={this.toggleNav} className='ml-auto'/>
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar className='ml-auto'>
+                                <NavItem>
+                                    <NavLink className='nav-link' to='/home'><span className='fa fa-home'> Home</span></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className='nav-link' to='/aboutus'><span className='fa fa-info'> About us</span></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className='nav-link' to='/menu'><span className='fa fa-list'> Menu</span></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className='nav-link' to='/contactus'><span className='fa fa-address-card'> Contact us</span></NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
                     </div>
                 </Navbar>
                 <Jumbotron>
@@ -30,3 +62,12 @@ class Header extends Component {
 
 
 export default Header;
+
+
+
+
+
+
+
+
+

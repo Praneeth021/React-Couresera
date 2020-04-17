@@ -3,10 +3,10 @@ import {Card,CardText,CardImgOverlay,CardImg} from 'reactstrap';
 
 
 
-function RenderMenuItem({dish,onClick}){
+function RenderMenuItem({dish}){
     if(dish!=null){
         return (
-            <Card key={dish.id} onClick={()=>onClick(dish.id)}>
+            <Card key={dish.id}>
                 <CardImg width='100%' src={dish.image} alt={dish.name} />
                 <CardImgOverlay>
                     <CardText>
