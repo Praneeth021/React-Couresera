@@ -1,5 +1,6 @@
 import React  from 'react';
-import {Card,CardText,CardImgOverlay,CardImg} from 'reactstrap';
+import {Card,CardText,CardImgOverlay,CardImg,Breadcrumb,BreadcrumbItem} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 
@@ -7,12 +8,14 @@ function RenderMenuItem({dish}){
     if(dish!=null){
         return (
             <Card key={dish.id}>
-                <CardImg width='100%' src={dish.image} alt={dish.name} />
-                <CardImgOverlay>
-                    <CardText>
-                        {dish.name}
-                    </CardText>
-                </CardImgOverlay>
+                <Link to ={`/menu/${dish.id}`}>
+                    <CardImg width='100%' src={dish.image} alt={dish.name} />
+                    <CardImgOverlay>
+                        <CardText>
+                            {dish.name}
+                        </CardText>
+                    </CardImgOverlay>
+                </Link>
             </Card>
         )
     }
@@ -37,6 +40,20 @@ const Menu = (props) => {
     });
     return (
         <div className='container'>
+            <div className='row'>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to={'/home'}>Home</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>
+                        Menu
+                    </BreadcrumbItem>
+                </Breadcrumb>
+                <div className='col-12'>
+                    <h1>Menu</h1>
+                    <hr />
+                </div>
+            </div>
             <div className='row'>
                 {menu}
             </div>
