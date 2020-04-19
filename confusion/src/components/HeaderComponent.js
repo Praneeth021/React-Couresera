@@ -25,7 +25,7 @@ class Header extends Component {
 
     toggleModal(){
         this.setState({
-            isModalOpen:!this.isModalOpen,
+            isModalOpen:!this.state.isModalOpen,
         })
     }
 
@@ -73,8 +73,8 @@ class Header extends Component {
                         </div>
                     </div>
                 </Jumbotron>
-                <Modal isOpen={this.state.isModalOpen}>
-                    <ModalHeader>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>
                         Login
                     </ModalHeader>
                     <ModalBody>
@@ -97,7 +97,7 @@ class Header extends Component {
                                     <strong>Remember Me?</strong>
                                 </Label>
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className='form-group pt-2'>
                                 <Button type='submit' className='btn btn-primary-outline'>Login</Button>
                             </FormGroup>
                         </Form>
