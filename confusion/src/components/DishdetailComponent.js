@@ -29,8 +29,9 @@ class CommentForm extends Component {
         this.setState({isModalOpen:!this.state.isModalOpen});
     }
 
-    handleSubmit(event){
+    handleSubmit(values){
         this.toggleModalOpen();
+        this.props.addComment(this.props.dishId,values.Rating,values.Username,values.Comment);
 
     }
     render(){
@@ -47,7 +48,7 @@ class CommentForm extends Component {
                 </ModalHeader>
                 <ModalBody>
                     <div className='col-12 col-md-12'>
-                    <LocalForm onSubmit={(values)=>this.handleSubmit(values)}>
+                    <LocalForm onSubmit={this.handleSubmit}>
                         <div className='form-group'>
                             <Label htmlFor='.Rating' >Rating</Label>
                                 <Control.select model='.Rating' id='Rating' name='Rating' placeholder='Rating'
@@ -123,7 +124,7 @@ function RenderDish ({dish}) {
 }
 
 
-function RenderComments({comments}) {
+function RenderComments({comments,addComment,dishId}) {
     if(comments!=null){
     let list = comments.map((comment)=>{
        if(comment!=null){ 
@@ -150,7 +151,7 @@ function RenderComments({comments}) {
             <ul className="list-unstyled">
                 {list}
             </ul>
-            <CommentForm />
+            <CommentForm addComment={addComment} dishId={dishId} />
         </div>
     )}
     else {
@@ -196,7 +197,7 @@ function RenderComments({comments}) {
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className='col-12 col-md-5 m-1'>
-                        <RenderComments comments={props.comments} />
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={dish.id}/>
                     </div>
                 </div>
             </div>
