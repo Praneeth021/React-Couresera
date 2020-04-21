@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
-import {Breadcrumb,BreadcrumbItem,Form,FormFeedback,FormGroup,Label,Button,Input,Col,Row} from 'reactstrap';
-import {LocalForm,Errors,Control} from 'react-redux-form';
+import {Breadcrumb,BreadcrumbItem,Label,Button,Col,Row} from 'reactstrap';
+import {Errors,Control,Form} from 'react-redux-form';
 import {Link} from 'react-router-dom'
 
 
@@ -16,28 +16,17 @@ class  Contact extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            firstname : "",
-            lastname : '',
-            telnum : '',
-            email : '',
-            agree : false,
-            contactType :'Tel.',
-            message : ''
-        }
-
         this.handleSubmit=this.handleSubmit.bind(this);
-        
     }
 
     
 
     
 
-    handleSubmit(event) {
-        console.log('Current State is: ' + JSON.stringify(this.state));
-        alert('Current State is: ' + JSON.stringify(this.state));
-        event.preventDefault();
+    handleSubmit(values) {
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackform();
     }
 
 
@@ -90,7 +79,7 @@ class  Contact extends Component {
                         <h3>Send Your Feedback</h3>
                     </div>
                     <div className='col-12 col-md-9'>
-                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                        <Form model='feedback' onSubmit={(values)=>this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -117,7 +106,7 @@ class  Contact extends Component {
                                     <Control.text model=".lastname" id="lastname" name="lastname"
                                         placeholder="Last Name"
                                         className="form-control"
-                                        validators={{required,maxLength:maxLength(15),minLength:minLength(13)}}
+                                        validators={{required,maxLength:maxLength(15),minLength:minLength(3)}}
                                          />
                                     <Errors
                                         className="text-danger"
@@ -209,7 +198,7 @@ class  Contact extends Component {
                                     </Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </div>
                 </div>
             </div>
