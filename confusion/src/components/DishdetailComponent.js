@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {Card,CardText,CardBody,CardTitle,CardImg,Breadcrumb,BreadcrumbItem, Button,Row,Modal,ModalBody,ModalHeader, Label, Col,ReactFragment} from 'reactstrap';
 import {Link,} from 'react-router-dom';
-import {LocalForm,Control,Errors} from 'react-redux-form'
+import {LocalForm,Control,Errors} from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -170,12 +171,32 @@ function RenderComments({comments,addComment,dishId}) {
     const DishDetail = (props) => {
         const dish=props.dish;
         const comments=props.comments
-        if(dish==null && comments==null)
+
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if(dish==null)
         {
             return (
                 <div></div>
             )
         }
+        else{
         return (
             <div className='container'>
                 <div className='row'>
@@ -184,7 +205,7 @@ function RenderComments({comments,addComment,dishId}) {
                             <Link to='/menu'>Menu</Link>
                         </BreadcrumbItem>
                         <BreadcrumbItem active>
-                            {dish.name}
+                            {props.dish.name}
                         </BreadcrumbItem>
                     </Breadcrumb>
                 </div>
@@ -203,6 +224,7 @@ function RenderComments({comments,addComment,dishId}) {
             </div>
             
         )
+        }
     };
 
 
