@@ -3,7 +3,8 @@ import {Card,CardText,CardBody,CardTitle,CardImg,Breadcrumb,BreadcrumbItem, Butt
 import {Link,} from 'react-router-dom';
 import {LocalForm,Control,Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
-import {baseURL, baseUrl} from '../shared/baseURL';
+import { baseUrl} from '../shared/baseURL';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -109,6 +110,11 @@ function RenderDish ({dish}) {
     if(dish!=null){
         return (
             <div>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
             <Card>
                 <CardImg top src={baseUrl+dish.image} alt={dish.name} />
                 <CardBody>
@@ -116,6 +122,7 @@ function RenderDish ({dish}) {
                     <CardText>{dish.description}</CardText>
                 </CardBody>
             </Card>
+            </FadeTransform>
             </div>
         );
     }
@@ -130,14 +137,17 @@ function RenderDish ({dish}) {
 function RenderComments({comments,addComment,dishId,postComment}) {
     if(comments!=null){
     let list = comments.map((comment)=>{
+    
        if(comment!=null){ 
             return (
+                <Fade in>
                 <li key={comment.id}>
                     <div>
                         <p>{comment.comment}</p>
                         <p>--{comment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     </div>
                 </li>
+                </Fade>
             )
        }
     
@@ -147,6 +157,7 @@ function RenderComments({comments,addComment,dishId,postComment}) {
             )
         }
     })
+    
 
     return (
         <div>
@@ -157,6 +168,7 @@ function RenderComments({comments,addComment,dishId,postComment}) {
             <CommentForm addComment={addComment} dishId={dishId} postComment ={postComment}/>
         </div>
     )}
+
     else {
         return (
             <div></div>
@@ -200,6 +212,7 @@ function RenderComments({comments,addComment,dishId,postComment}) {
         else{
         return (
             <div className='container'>
+                
                 <div className='row'>
                     <Breadcrumb>
                         <BreadcrumbItem>
